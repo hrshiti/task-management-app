@@ -11,11 +11,12 @@ const errorMiddleware = require('./middlewares/error-middleware.js');
 require("dotenv").config();
 
 const corsOptions = {
-    origin: 'http://localhost:5173', 
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
-    allowedHeaders: 'Content-Type, Authorization', 
-    credentials: true, 
+  origin: ['http://localhost:5173', 'https://neon-frangollo-1457cd.netlify.app'],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 };
+
 
 app.use(cors(corsOptions));
 app.use("/uploads", express.static("uploads"));

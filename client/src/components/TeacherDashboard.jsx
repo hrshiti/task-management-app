@@ -17,7 +17,7 @@ const TeacherDashboard = () => {
         fetchTasks();
       }, []);
     //    try {
-    //   const res = await fetch("http://localhost:3000/taskApi/my-tasks", {
+    //   const res = await fetch("https://task-management-app-1-aw93.onrender.com/taskApi/my-tasks", {
     //     headers: {
     //       Authorization: `Bearer ${token}`,
     //     },
@@ -29,7 +29,7 @@ const TeacherDashboard = () => {
     // }
       const fetchTasks = async () => {
         try {
-          const res = await fetch('http://localhost:3000/taskApi/gettask', {
+          const res = await fetch('https://task-management-app-1-aw93.onrender.com/taskApi/gettask', {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -42,7 +42,7 @@ const TeacherDashboard = () => {
       };
       const fetchSubmittedTasks = async () => {
   try {
-    const res = await fetch("http://localhost:3000/taskApi/submitted", {
+    const res = await fetch("https://task-management-app-1-aw93.onrender.com/taskApi/submitted", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -124,7 +124,7 @@ useEffect(() => {
           <td className="py-2 px-4 border">{task.assignedTo?.username}</td>
           <td className="py-2 px-4 border">{new Date(task.submission?.submittedAt).toLocaleString()}</td>
           <td className="py-2 px-4 border">
-            <a href={`http://localhost:3000${task.submission?.fileUrl}`} target="_blank" className="text-blue-600 underline">
+            <a href={`https://task-management-app-1-aw93.onrender.com${task.submission?.fileUrl}`} target="_blank" className="text-blue-600 underline">
               View File
             </a>
           </td>

@@ -32,7 +32,7 @@ const handleSubmitTask = async (taskId) => {
   formData.append("taskId", taskId);
 
   try {
-    const res = await fetch(`http://localhost:3000/taskApi/submit/${taskId}`, {
+    const res = await fetch(`https://task-management-app-1-aw93.onrender.com/taskApi/submit/${taskId}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ const handleSubmitTask = async (taskId) => {
 
 const fetchStudentTasks = async () => {
   try {
-    const res = await fetch("http://localhost:3000/taskApi/my-tasks", {
+    const res = await fetch("https://task-management-app-1-aw93.onrender.com/taskApi/my-tasks", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
