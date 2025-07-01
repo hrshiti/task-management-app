@@ -1,4 +1,6 @@
 
+
+const logAction = require('../auditLogger.js');
 const Task = require('../models/task-model.js'); 
 
 const createTask = async (req, res) => {
@@ -11,6 +13,8 @@ const createTask = async (req, res) => {
       assignedTo,
       createdBy: req.user._id,
     });
+    console.log("User ID:", req.user?._id);
+    await logAction(req.user._id, `Created task "${title}"`);
     res.status(201).json({ message: 'Task created', task });
   } catch (error) {
     res.status(500).json({ message: 'Error creating task', error });
@@ -18,16 +22,20 @@ const createTask = async (req, res) => {
 };
 
 const getTasks = async (req, res) => {
-  const tasks = await Task.find().populate('assignedTo', 'username email role');
+  const tasks = await Task.find()
+    .populate('assignedTo', 'username email role')
+    .populate('comments.student', 'username'); // Populate student name from comment
   res.status(200).json(tasks);
 };
-
 const updateTask = async (req, res) => {
   const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  await logAction(req.user._id, `updated task with ID "${req.params.id}"`);
   res.status(200).json({ message: 'Task updated', updatedTask });
 };
+
 const deleteTask = async (req, res) => {
   await Task.findByIdAndDelete(req.params.id);
+  await logAction(req.user._id, `Deleted task with ID "${req.params.id}"`);
   res.status(200).json({ message: 'Task deleted' });
 };
 // GET /task/my-tasks
@@ -56,7 +64,7 @@ task.status = "completed";
       submittedAt: new Date()
     };
     await task.save();
-
+await logAction(req.user._id, `submit task with ID "${req.params.id}"`);
     res.status(200).json({ message: "Task submitted successfully", task });
   } catch (error) {
     res.status(500).json({ message: "Error submitting task", error });
@@ -73,6 +81,45 @@ const getSubmittedTasks = async (req, res) => {
   }
 };
 
+const evaluateTask = async (req, res) => {
+  try {
+    const { feedback, marks } = req.body;
+    const task = await Task.findById(req.params.id);
+
+    if (!task || !task.submission || task.submission.status !== "submitted") {
+      return res.status(400).json({ message: "Task is not in submitted state" });
+    }
+
+    task.submission.feedback = feedback;
+    task.submission.marks = marks;
+    task.submission.status = "evaluated";
+    await task.save();
+
+    await logAction(req.user._id, `Evaluated task '${task.title}' with ${marks} marks`);
+
+    res.status(200).json({ message: "Evaluation submitted", task });
+  } catch (error) {
+    res.status(500).json({ message: "Error evaluating task", error });
+  }
+};
+const addComment = async (req, res) => {
+  try {
+    const { text } = req.body;
+    const taskId = req.params.id;
+    const task = await Task.findById(taskId);
+    if (!task) return res.status(404).json({ message: 'Task not found' });
+
+    task.comments.push({
+      text,
+      student: req.user._id,
+    });
+    await task.save();
+
+    res.status(200).json({ message: 'Comment added successfully', task });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to add comment', error });
+  }
+};
 
 module.exports = {
   createTask,
@@ -81,5 +128,7 @@ module.exports = {
     deleteTask,
     getStudentTasks,
     submitTask,
-    getSubmittedTasks
+    getSubmittedTasks,
+    evaluateTask,
+    addComment
 };

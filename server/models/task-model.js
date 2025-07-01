@@ -8,10 +8,27 @@ const taskSchema = new mongoose.Schema({
   assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   submission: {
-  fileUrl: { type: String },  
-  status: { type: String, enum: ['pending', 'submitted'], default: 'pending' },
-  submittedAt: { type: Date }
-}
+  fileUrl: String,
+  status: {
+    type: String,
+    enum: ["pending", "submitted", "evaluated"],
+    default: "pending"
+  },
+  submittedAt: Date,
+  feedback: String,
+  marks: Number
+},
+comments: [
+  {
+    text: String,
+    student: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    }
+  }
+],
+
 
 }, { timestamps: true });
 

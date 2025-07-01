@@ -82,6 +82,7 @@ const getUserData = async (req, res) => {
         const userData = await User.find({}, "-password"); 
         if (!userData || userData.length === 0) {
             console.error("No user data found");
+              
             return res.status(404).json({ message: "No user data found" });
         }
         console.log("User data fetched successfully:", userData);

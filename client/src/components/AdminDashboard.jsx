@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import UserTable from "./dashboardPages/UserTable";
+import AuditLogs from "./dashboardPages/AuditLogs";
 
 const AdminDashboard = () => {
   return (
@@ -21,6 +22,7 @@ const AdminDashboard = () => {
       </div>
       
       <UserTable />
+      <AuditLogs />
     </div>
   );
 };

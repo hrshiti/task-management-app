@@ -55,6 +55,7 @@ userSchema.methods.generateAuthToken = async function() {
         return jwt.sign({ 
             user: this._id,
             email: this.email,
+            role: this.role,
              isAdmin: this.isAdmin 
             },
              process.env.JWT_SECRET, {

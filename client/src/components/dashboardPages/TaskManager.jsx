@@ -20,19 +20,31 @@ const TaskForm = ({ onTaskCreated }) => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      try {
-        const res = await fetch("https://task-management-app-1-aw93.onrender.com/authApi/userData", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await res.json();
-        const filtered = data.filter(user => user.role !== 'admin');
-        setUsers(filtered);
-      } catch (err) {
-        console.error("Error fetching users:", err);
-      }
-    };
+  try {
+    const res = await fetch("https://task-management-app-1-aw93.onrender.com/authApi/userData", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.message || "Failed to fetch users");
+    }
+
+    const data = await res.json();
+
+    if (!Array.isArray(data)) {
+      throw new Error("Unexpected response format");
+    }
+
+    const filtered = data.filter(user => user.role !== 'admin');
+    setUsers(filtered);
+  } catch (err) {
+    console.error("Error fetching users:", err.message);
+  }
+};
+
     fetchUsers();
   }, [token]);
 
@@ -65,7 +77,9 @@ const TaskForm = ({ onTaskCreated }) => {
       alert("Error creating task");
     }
   };
-
+useEffect(() => {
+  console.log("Token:", token);
+}, [token]);
   return (
     <div className="bg-white p-6 rounded-xl shadow-md max-w-3xl mx-auto mt-8">
       <h2 className="text-2xl font-bold mb-4 text-center text-blue-700">Create New Task</h2>

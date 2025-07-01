@@ -15,6 +15,7 @@ import StudentDashboard from './components/StudentDashboard.jsx'
 import UserTable from './components/dashboardPages/UserTable.jsx'
 import TaskManager from './components/dashboardPages/TaskManager.jsx'
 import TaskTable from './components/dashboardPages/TaskTable.jsx'
+// import AssignTaskForm from './components/AssignTaskForm.jsx'
 
 
 
@@ -72,6 +73,11 @@ const router = createBrowserRouter([
   element: <TaskTable />,
   path: "/tasktable",
 }
+  ,
+//   {
+//   element: <AssignTaskForm />,
+//   path: "/teacherAssignTask",
+// }
   
 ])
 createRoot(document.getElementById('root')).render(

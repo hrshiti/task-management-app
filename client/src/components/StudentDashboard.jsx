@@ -6,6 +6,9 @@ import { useSelector } from "react-redux";
 
 const StudentDashboard = () => {
 const [fileMap, setFileMap] = useState({});
+const [commentText, setCommentText] = useState("");
+
+
 
     // <div className="p-8">
     //   <h1 className="text-3xl font-bold">Student Dashboard</h1>
@@ -32,26 +35,55 @@ const handleSubmitTask = async (taskId) => {
   formData.append("taskId", taskId);
 
   try {
-    const res = await fetch(`https://task-management-app-1-aw93.onrender.com/taskApi/submit/${taskId}`, {
+    const res = await fetch(`http://localhost:3000/taskApi/submit/${taskId}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
       },
       body: formData,
     });
-    const result = await res.json();
+
+    let result;
+    try {
+      result = await res.json(); // Try to parse JSON
+    } catch (err) {
+      const text = await res.text(); // Fallback to plain text
+      console.error("Non-JSON response:", text);
+      result = { message: text };
+    }
+
     if (res.ok) {
       alert("Submitted successfully!");
       setFileMap((prev) => ({ ...prev, [taskId]: null }));
-      fetchStudentTasks(); 
+      fetchStudentTasks();
     } else {
-      alert(result.message);
+      alert(result.message || "Submission failed");
     }
   } catch (err) {
     console.error("Submit error", err);
+    alert("Something went wrong. Please try again later.");
   }
 };
 
+const handleCommentSubmit = async (taskId) => {
+  try {
+    const res = await fetch(`http://localhost:3000/taskApi/comment/${taskId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ text: commentText }),
+    });
+    console.log("Response:", res);
+    const data = await res.json();
+    alert(data.message);
+    fetchStudentTasks(); // refresh task list
+    setCommentText("");
+  } catch (error) {
+    console.error("Error adding comment:", error);
+  }
+};
 const fetchStudentTasks = async () => {
   try {
     const res = await fetch("https://task-management-app-1-aw93.onrender.com/taskApi/my-tasks", {
@@ -70,7 +102,7 @@ const fetchStudentTasks = async () => {
   fetchStudentTasks();
 }, []);
       return (
-        <div className="p-8">
+        <div className="p-8 ">
       <h1 className="text-3xl font-bold">Student Dashboard</h1>
       <p>Welcome, Student! Complete and submit your assigned tasks.</p>
       
@@ -88,6 +120,10 @@ const fetchStudentTasks = async () => {
                 <th className="py-3 px-4 border">Upload</th>
 <th className="py-3 px-4 border">Action</th>
 <th className="py-3 px-4 border">Status</th>
+  <th className="py-2 px-4 border">Feedback</th>
+      <th className="py-2 px-4 border">Marks</th>
+      <th className="py-2 px-4 border">File</th>
+      <th className="py-2 px-4 border "> Comments</th>
                 
               </tr>
             </thead>
@@ -124,7 +160,39 @@ const fetchStudentTasks = async () => {
   {task.submission?.status || 'pending'}
 </span>
 </td>
-
+ <td className="py-2 px-4 border">
+            {task.submission?.feedback || "Not reviewed"}
+          </td>
+          <td className="py-2 px-4 border">
+            {task.submission?.marks != null ? `${task.submission.marks}/10` : "N/A"}
+          </td>
+          <td className="py-2 px-4 border">
+            {task.submission?.fileUrl ? (
+              <a
+                href={`http://localhost:3000${task.submission.fileUrl}`}
+                target="_blank"
+                className="text-blue-600 underline"
+              >
+                View
+              </a>
+            ) : (
+              "—"
+            )}
+          </td>
+<td colSpan="11" className="py-2 px-4 border bg-gray-50">
+  <textarea
+    className="w-full border p-2 text-sm mb-1"
+    placeholder="Ask a question or comment..."
+    value={commentText}
+    onChange={(e) => setCommentText(e.target.value)}
+  />
+  <button
+    className="bg-blue-600 text-white px-3 py-1 rounded text-sm"
+    onClick={() => handleCommentSubmit(task._id)}
+  >
+    Submit Comment
+  </button>
+</td>
                   </tr>
                 ))
               ) : (
@@ -136,6 +204,8 @@ const fetchStudentTasks = async () => {
               )}
             </tbody>
           </table>
+          
+
         </div>
        
         </div>

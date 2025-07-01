@@ -7,6 +7,8 @@ const taskRouter = require('./routers/task-router.js');
 const connetDb = require('./utils/db.js');
 const cors = require('cors');
 const errorMiddleware = require('./middlewares/error-middleware.js');
+const auditlogsrouter = require('./routers/auditLogs-router.js');
+const teachertaskRouter = require('./routers/teacherTak-router.js');
 
 require("dotenv").config();
 
@@ -24,6 +26,8 @@ app.use(express.json());
 app.use("/productApi", productRouter);
 app.use("/authApi", authRouter);
 app.use("/taskApi", taskRouter);
+app.use("/auditlogs",auditlogsrouter)
+app.use("/teacherassigntask",teachertaskRouter);
 
 app.use(errorMiddleware); 
 connetDb()
