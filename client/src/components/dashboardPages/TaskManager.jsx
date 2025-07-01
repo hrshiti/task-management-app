@@ -21,7 +21,7 @@ const TaskForm = ({ onTaskCreated }) => {
   useEffect(() => {
     const fetchUsers = async () => {
   try {
-    const res = await fetch("https://task-management-app-1-aw93.onrender.com/authApi/userData", {
+    const res = await fetch("https://task-management-app-9.onrender.com/authApi/userData", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -56,7 +56,7 @@ const TaskForm = ({ onTaskCreated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("https://task-management-app-1-aw93.onrender.com/taskApi/create", {
+      const res = await fetch("https://task-management-app-9.onrender.com/taskApi/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

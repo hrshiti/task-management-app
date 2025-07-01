@@ -13,7 +13,7 @@ const TaskTable = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await fetch('https://task-management-app-1-aw93.onrender.com/taskApi/gettask', {
+      const res = await fetch('https://task-management-app-9.onrender.com/taskApi/gettask', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -35,7 +35,7 @@ const TaskTable = () => {
     if (!confirm) return;
 
     try {
-      const res = await fetch(`https://task-management-app-1-aw93.onrender.com/taskApi/delete/${id}`, {
+      const res = await fetch(`https://task-management-app-9.onrender.com/taskApi/delete/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -66,7 +66,7 @@ const TaskTable = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`https://task-management-app-1-aw93.onrender.com/taskApi/update/${editingTaskId}`, {
+      const res = await fetch(`https://task-management-app-9.onrender.com/taskApi/update/${editingTaskId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

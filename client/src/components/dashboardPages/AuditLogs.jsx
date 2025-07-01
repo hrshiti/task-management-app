@@ -8,7 +8,7 @@ const AuditLogs = () => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const res = await fetch("https://task-management-app-1-aw93.onrender.com/auditlogs/audit", {
+        const res = await fetch("https://task-management-app-9.onrender.com/auditlogs/audit", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

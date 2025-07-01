@@ -35,7 +35,7 @@ const handleSubmitTask = async (taskId) => {
   formData.append("taskId", taskId);
 
   try {
-    const res = await fetch(`https://task-management-app-1-aw93.onrender.com/taskApi/submit/${taskId}`, {
+    const res = await fetch(`https://task-management-app-9.onrender.com/taskApi/submit/${taskId}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ const handleSubmitTask = async (taskId) => {
 
 const handleCommentSubmit = async (taskId) => {
   try {
-    const res = await fetch(`https://task-management-app-1-aw93.onrender.com/taskApi/comment/${taskId}`, {
+    const res = await fetch(`https://task-management-app-9.onrender.com/taskApi/comment/${taskId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ const handleCommentSubmit = async (taskId) => {
 };
 const fetchStudentTasks = async () => {
   try {
-    const res = await fetch("https://task-management-app-1-aw93.onrender.com/taskApi/my-tasks", {
+    const res = await fetch("https://task-management-app-9.onrender.com/taskApi/my-tasks", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

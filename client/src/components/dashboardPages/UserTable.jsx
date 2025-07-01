@@ -24,7 +24,7 @@ const handleEdit = (user) => {
 const handleUpdate = async (e, id) => {
   e.preventDefault();
   try {
-    const res = await fetch(`https://task-management-app-1-aw93.onrender.com/authApi/updateUser/${id}`, {
+    const res = await fetch(`https://task-management-app-9.onrender.com/authApi/updateUser/${id}`, {
       method: "PUT",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -52,7 +52,7 @@ const handleDelete = async (id) => {
   if (!confirm) return;
 
   try {
-    const res = await fetch(`https://task-management-app-1-aw93.onrender.com/authApi/deleteUser/${id}`, {
+    const res = await fetch(`https://task-management-app-9.onrender.com/authApi/deleteUser/${id}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -80,7 +80,7 @@ const handleDelete = async (id) => {
       
 
 
-      const res = await fetch("https://task-management-app-1-aw93.onrender.com/authApi/userData", {
+      const res = await fetch("https://task-management-app-9.onrender.com/authApi/userData", {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",

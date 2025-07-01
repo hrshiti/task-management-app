@@ -20,7 +20,7 @@ const TeacherDashboard = () => {
     fetchTasks();
   }, []);
   //    try {
-  //   const res = await fetch("https://task-management-app-1-aw93.onrender.com/taskApi/my-tasks", {
+  //   const res = await fetch("https://task-management-app-9.onrender.com/taskApi/my-tasks", {
   //     headers: {
   //       Authorization: `Bearer ${token}`,
   //     },
@@ -32,7 +32,7 @@ const TeacherDashboard = () => {
   // }
   const handleEvaluate = async (taskId) => {
     try {
-      const res = await fetch(`https://task-management-app-1-aw93.onrender.com/taskApi/evaluate/${taskId}`, {
+      const res = await fetch(`https://task-management-app-9.onrender.com/taskApi/evaluate/${taskId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +55,7 @@ const TeacherDashboard = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await fetch('https://task-management-app-1-aw93.onrender.com/taskApi/gettask', {
+      const res = await fetch('https://task-management-app-9.onrender.com/taskApi/gettask', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -68,7 +68,7 @@ const TeacherDashboard = () => {
   };
   const fetchSubmittedTasks = async () => {
     try {
-      const res = await fetch("https://task-management-app-1-aw93.onrender.com/taskApi/submitted", {
+      const res = await fetch("https://task-management-app-9.onrender.com/taskApi/submitted", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

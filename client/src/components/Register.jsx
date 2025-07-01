@@ -16,7 +16,7 @@ const Register = () => {
     const onSubmitHandler=async (e)=>{
     e.preventDefault();
     console.log("User data submitted:", user);
-    const response = await fetch("https://task-management-app-1-aw93.onrender.com/authApi/register", {
+    const response = await fetch("https://task-management-app-9.onrender.com/authApi/register", {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
