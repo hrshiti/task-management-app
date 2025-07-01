@@ -13,7 +13,7 @@ const teachertaskRouter = require('./routers/teacherTak-router.js');
 require("dotenv").config();
 
 const corsOptions = {
-  origin: ['http://localhost:5173', 'https://neon-frangollo-1457cd.netlify.app'],
+  origin: ['http://localhost:5173', 'https://papaya-banoffee-c1c17e.netlify.app/','https://task-management-app-2-6tdi.onrender.com'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
