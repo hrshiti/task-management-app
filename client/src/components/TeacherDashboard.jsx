@@ -32,7 +32,7 @@ const TeacherDashboard = () => {
   // }
   const handleEvaluate = async (taskId) => {
     try {
-      const res = await fetch(`http://localhost:3000/taskApi/evaluate/${taskId}`, {
+      const res = await fetch(`https://task-management-app-1-aw93.onrender.com/taskApi/evaluate/${taskId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
