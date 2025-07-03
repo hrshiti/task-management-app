@@ -169,13 +169,10 @@ const TeacherDashboard = () => {
                 <td className="py-2 px-4 border">{new Date(task.submission?.submittedAt).toLocaleString()}</td>
                 <td className="py-2 px-4 border">
                   {task.submission?.fileUrl ? (
-                    <a
-                      href={`http://localhost:3000${task.submission.fileUrl}`}
-                      target="_blank"
-                      className="text-blue-600 underline"
-                    >
-                      View
-                    </a>
+                   <a href={task.submission.fileUrl} target="_blank" className="text-blue-600 underline">
+  View
+</a>
+
                   ) : (
                     "—"
                   )}

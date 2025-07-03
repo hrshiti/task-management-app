@@ -1,4 +1,4 @@
-# Node.js
+
 node_modules/
 .env
 dist/
@@ -7,32 +7,29 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Logs
 logs
 *.log
 *.log.*
 
-# System
+
 .DS_Store
 Thumbs.db
 
-# Optional IDE files
 .vscode/
 .idea/
 
-# OS or editor files
+
 *.swp
 *.swo
 
-# React build
+
 /build
 
-# Local uploads (if any)
+
 uploads/
 public/uploads/
 
-# Coverage (if using Jest)
+
 coverage/
 
-# Parcel or Vite cache
 .cache/
